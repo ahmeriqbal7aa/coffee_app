@@ -1,7 +1,7 @@
 # coffee_app
 
 ```
-A new Flutter-Firebase "Chat" application with Firebase Cloud Firestore.
+A new Flutter-Firebase "Coffee or Brew_Crew" application with Firebase Cloud Firestore.
 ```
 
 ## Getting Started
