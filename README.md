@@ -22,4 +22,3 @@ samples, guidance on mobile development, and a full API reference.
 
 - firebase_auth package
 - cloud_firestore package
-- firebase_core package
