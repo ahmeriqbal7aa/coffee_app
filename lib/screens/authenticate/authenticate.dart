@@ -1,15 +1,16 @@
+import 'package:coffee_app/screens/authenticate/sign_in.dart';
 import 'package:flutter/material.dart';
 
-class Authentication extends StatefulWidget {
+class Authenticate extends StatefulWidget {
   @override
-  _AuthenticationState createState() => _AuthenticationState();
+  _AuthenticateState createState() => _AuthenticateState();
 }
 
-class _AuthenticationState extends State<Authentication> {
+class _AuthenticateState extends State<Authenticate> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text('Authenticate'),
+      child: SignIn(),
     );
   }
 }
