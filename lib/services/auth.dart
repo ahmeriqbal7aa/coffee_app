@@ -7,9 +7,16 @@ class AuthService {
 
   // create user obj based on firebase user
   // Set userID to "UserOfFirebase" Class
-  UserOfFirebase? _userFromFirebaseUser(User firebaseUser) {
-    // ignore: unnecessary_null_comparison
-    return firebaseUser != null ? UserOfFirebase(uid: firebaseUser.uid) : null;
+  Usser _userFromFirebase(User user) {
+    // return user != null ? Usser(uid: user.uid) : null;
+    return Usser(uid: user.uid);
+  }
+
+  // auth change user stream
+  Stream<Usser> get user {
+    // ignore: deprecated_member_use
+    return _auth.onAuthStateChanged.map(_userFromFirebase);
+    // .map((User user) => _userFromFirebase(user));
   }
 
   // sign in anonymous
@@ -18,8 +25,13 @@ class AuthService {
       // AuthResult authResult = await _auth.signInAnonymously();
       // FirebaseUser user = authResult.user;
       UserCredential credential = await _auth.signInAnonymously();
-      User? firebaseUser = credential.user;
-      return _userFromFirebaseUser(firebaseUser!);
+      User user = credential.user;
+      // ignore: unnecessary_null_comparison
+      if (user != null) {
+        return _userFromFirebase(user);
+      } else {
+        return null;
+      }
     } catch (e) {
       print(e.toString());
       return null;

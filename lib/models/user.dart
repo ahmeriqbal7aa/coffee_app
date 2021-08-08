@@ -1,6 +1,6 @@
-class UserOfFirebase {
+class Usser {
   final String uid;
-  UserOfFirebase({required this.uid});
+  Usser({this.uid});
 }
 
 // purpose of above class is actually
