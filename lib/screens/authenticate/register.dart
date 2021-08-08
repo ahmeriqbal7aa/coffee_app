@@ -1,19 +1,22 @@
 import 'package:coffee_app/services/auth.dart';
 import 'package:flutter/material.dart';
 
-class SignIn extends StatefulWidget {
+class Register extends StatefulWidget {
   final Function toggleView;
-  SignIn({this.toggleView});
+  Register({this.toggleView});
+
   @override
-  _SignInState createState() => _SignInState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _SignInState extends State<SignIn> {
+class _RegisterState extends State<Register> {
   final AuthService _auth = AuthService();
+  final _formKey = GlobalKey<FormState>();
 
   // Text Field State
   String email = "";
   String password = "";
+  String error = "";
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +24,14 @@ class _SignInState extends State<SignIn> {
       backgroundColor: Colors.brown[100],
       appBar: AppBar(
         backgroundColor: Colors.brown[400],
-        title: Text('Sign In to Brew Crew'),
+        title: Text('Sign Up to Brew Crew'),
         actions: <Widget>[
           // ignore: deprecated_member_use
           FlatButton.icon(
             onPressed: () => widget.toggleView(),
             icon: Icon(Icons.person),
             label: Text(
-              'Register',
+              'Sign In',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.0),
             ),
           ),
@@ -37,45 +40,40 @@ class _SignInState extends State<SignIn> {
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
         child: Form(
+          key: _formKey,
           child: Column(
             children: [
               SizedBox(height: 20.0),
               // TODO Email
               TextFormField(
-                onChanged: (val) {
-                  setState(() {
-                    email = val;
-                  });
-                },
+                validator: (_val) => _val.isEmpty ? "Enter an email" : null,
+                onChanged: (val) => setState(() => email = val),
               ),
               SizedBox(height: 20.0),
               // TODO Password
               TextFormField(
+                validator: (_val) =>
+                    _val.length < 6 ? "Minimum 6 characters required" : null,
+                onChanged: (val) => setState(() => password = val),
                 obscureText: true,
-                onChanged: (val) {
-                  setState(() {
-                    password = val;
-                  });
-                },
               ),
               SizedBox(height: 30.0),
               // ignore: deprecated_member_use
               RaisedButton(
                 onPressed: () async {
-                  // dynamic result = await _auth.signInAnonymous();
-                  // if (result == null) {
-                  //   print('Error Signing In');
-                  // } else {
-                  //   print('Signed in');
-                  //   print(result);
-                  //   print(result.uid);
-                  // }
-                  print(email);
-                  print(password);
+                  if (_formKey.currentState.validate()) {
+                    dynamic result = await _auth.registerWithEmailAndPassword(
+                        email, password);
+                    if (result == null) {
+                      setState(() => error = "Valid email required !");
+                    }
+                  }
+                  // print(email);
+                  // print(password);
                 },
                 color: Colors.purple[400],
                 child: Text(
-                  'Sign in',
+                  'Sign up',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
@@ -83,6 +81,8 @@ class _SignInState extends State<SignIn> {
                   ),
                 ),
               ),
+              SizedBox(height: 12.0),
+              Text(error, style: TextStyle(color: Colors.red, fontSize: 14.0)),
             ],
           ),
         ),
@@ -90,19 +90,3 @@ class _SignInState extends State<SignIn> {
     );
   }
 }
-
-// SignIn Anonymously
-// ignore: deprecated_member_use
-/*RaisedButton(
-          child: Text('Sign in Anonymous'),
-          onPressed: () async {
-            dynamic result = await _auth.signInAnonymous();
-            if (result == null) {
-              print('Error Signing In');
-            } else {
-              print('Signed in');
-              print(result);
-              print(result.uid);
-            }
-          },
-        ),*/
