@@ -1,4 +1,5 @@
 import 'package:coffee_app/services/auth.dart';
+import 'package:coffee_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
@@ -48,6 +49,10 @@ class _RegisterState extends State<Register> {
               TextFormField(
                 validator: (_val) => _val.isEmpty ? "Enter an email" : null,
                 onChanged: (val) => setState(() => email = val),
+                decoration: textInputDecoration.copyWith(
+                  hintText: 'example@domain.com',
+                  labelText: "Email",
+                ),
               ),
               SizedBox(height: 20.0),
               // TODO Password
@@ -56,10 +61,10 @@ class _RegisterState extends State<Register> {
                     _val.length < 6 ? "Minimum 6 characters required" : null,
                 onChanged: (val) => setState(() => password = val),
                 obscureText: true,
+                decoration: textInputDecoration.copyWith(labelText: "Password"),
               ),
               SizedBox(height: 30.0),
-              // ignore: deprecated_member_use
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
                     dynamic result = await _auth.registerWithEmailAndPassword(
@@ -71,13 +76,27 @@ class _RegisterState extends State<Register> {
                   // print(email);
                   // print(password);
                 },
-                color: Colors.purple[500],
-                child: Text(
-                  'Sign up',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    fontSize: 17.0,
+                style: ElevatedButton.styleFrom(
+                  // foreground
+                  // onPrimary: Colors.black,
+                  // background
+                  primary: Colors.blue[500],
+                  shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(15.0),
+                  ),
+                ),
+                // style: ButtonStyle(
+                //   backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                // ),
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    'Sign up',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      fontSize: 17.0,
+                    ),
                   ),
                 ),
               ),

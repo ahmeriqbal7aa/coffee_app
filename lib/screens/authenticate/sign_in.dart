@@ -1,4 +1,5 @@
 import 'package:coffee_app/services/auth.dart';
+import 'package:coffee_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
@@ -20,6 +21,7 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.brown[100],
       appBar: AppBar(
         backgroundColor: Colors.brown[400],
@@ -47,6 +49,10 @@ class _SignInState extends State<SignIn> {
               TextFormField(
                 validator: (_val) => _val.isEmpty ? "Enter an email" : null,
                 onChanged: (val) => setState(() => email = val),
+                decoration: textInputDecoration.copyWith(
+                  hintText: 'example@domain.com',
+                  labelText: "Email",
+                ),
               ),
               SizedBox(height: 20.0),
               // TODO Password
@@ -55,10 +61,11 @@ class _SignInState extends State<SignIn> {
                     _val.length < 6 ? "Minimum 6 characters required" : null,
                 onChanged: (val) => setState(() => password = val),
                 obscureText: true,
+                decoration: textInputDecoration.copyWith(labelText: "Password"),
               ),
               SizedBox(height: 30.0),
-              // ignore: deprecated_member_use
-              RaisedButton(
+              // TODO Button
+              ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
                     dynamic result =
@@ -70,13 +77,27 @@ class _SignInState extends State<SignIn> {
                   }
                   // print('Valid');
                 },
-                color: Colors.teal[500],
-                child: Text(
-                  'Sign in',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    fontSize: 17.0,
+                style: ElevatedButton.styleFrom(
+                  // foreground color
+                  // onPrimary: Colors.black,
+                  // background color
+                  primary: Colors.green[500],
+                  shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(15.0),
+                  ),
+                ),
+                // style: ButtonStyle(
+                //   backgroundColor: MaterialStateProperty.all<Color>(Colors.purple),
+                // ),
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    'Sign in',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      fontSize: 17.0,
+                    ),
                   ),
                 ),
               ),
