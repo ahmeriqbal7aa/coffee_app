@@ -10,10 +10,12 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   final AuthService _auth = AuthService();
+  final _formKey = GlobalKey<FormState>();
 
   // Text Field State
   String email = "";
   String password = "";
+  String error = "";
 
   @override
   Widget build(BuildContext context) {
@@ -37,43 +39,38 @@ class _SignInState extends State<SignIn> {
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
         child: Form(
+          key: _formKey,
           child: Column(
             children: [
               SizedBox(height: 20.0),
               // TODO Email
               TextFormField(
-                onChanged: (val) {
-                  setState(() {
-                    email = val;
-                  });
-                },
+                validator: (_val) => _val.isEmpty ? "Enter an email" : null,
+                onChanged: (val) => setState(() => email = val),
               ),
               SizedBox(height: 20.0),
               // TODO Password
               TextFormField(
+                validator: (_val) =>
+                    _val.length < 6 ? "Minimum 6 characters required" : null,
+                onChanged: (val) => setState(() => password = val),
                 obscureText: true,
-                onChanged: (val) {
-                  setState(() {
-                    password = val;
-                  });
-                },
               ),
               SizedBox(height: 30.0),
               // ignore: deprecated_member_use
               RaisedButton(
                 onPressed: () async {
-                  // dynamic result = await _auth.signInAnonymous();
-                  // if (result == null) {
-                  //   print('Error Signing In');
-                  // } else {
-                  //   print('Signed in');
-                  //   print(result);
-                  //   print(result.uid);
-                  // }
-                  print(email);
-                  print(password);
+                  if (_formKey.currentState.validate()) {
+                    dynamic result =
+                        await _auth.signInWithEmailAndPassword(email, password);
+                    if (result == null) {
+                      setState(() =>
+                          error = "Couldn't sign in with those credentials !");
+                    }
+                  }
+                  // print('Valid');
                 },
-                color: Colors.purple[400],
+                color: Colors.teal[500],
                 child: Text(
                   'Sign in',
                   style: TextStyle(
@@ -83,6 +80,8 @@ class _SignInState extends State<SignIn> {
                   ),
                 ),
               ),
+              SizedBox(height: 12.0),
+              Text(error, style: TextStyle(color: Colors.red, fontSize: 14.0)),
             ],
           ),
         ),

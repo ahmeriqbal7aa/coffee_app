@@ -71,7 +71,7 @@ class _RegisterState extends State<Register> {
                   // print(email);
                   // print(password);
                 },
-                color: Colors.purple[400],
+                color: Colors.purple[500],
                 child: Text(
                   'Sign up',
                   style: TextStyle(
