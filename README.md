@@ -23,3 +23,4 @@ samples, guidance on mobile development, and a full API reference.
 - firebase_auth package
 - cloud_firestore package
 - provider package
+- flutter_spinkit package
