@@ -11,6 +11,17 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void _showSettingsPanel() {
+      showModalBottomSheet(
+          context: context,
+          builder: (context) {
+            return Container(
+              padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
+              child: Text('Bottom Sheet'),
+            );
+          });
+    }
+
     //  StreamProvider<QuerySnapshot>.value
     return StreamProvider<List<Brew>>.value(
       value: DatabaseService().coffeeSnapshot,
@@ -31,6 +42,11 @@ class HomePage extends StatelessWidget {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.0),
               ),
             ),
+            IconButton(
+              padding: EdgeInsets.only(right: 12.0),
+              icon: Icon(Icons.settings, color: Colors.black, size: 30.0),
+              onPressed: () => _showSettingsPanel(),
+            )
           ],
         ),
         body: BrewList(),
