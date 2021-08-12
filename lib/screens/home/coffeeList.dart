@@ -17,7 +17,8 @@ class _BrewListState extends State<BrewList> {
     // for (var doc in coffee.docs) {
     //   print(doc.data);
     // }
-    final coffee = Provider.of<List<Brew>>(context);
+    // "??" stand for fallback option
+    final coffee = Provider.of<List<Brew>>(context) ?? [];
     // coffee.forEach((brew) {
     //   print(brew.name);
     //   print(brew.sugars);

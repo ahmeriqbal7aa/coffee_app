@@ -1,6 +1,7 @@
 // import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coffee_app/models/brew.dart';
 import 'package:coffee_app/screens/home/coffeeList.dart';
+import 'package:coffee_app/screens/home/settingForm.dart';
 import 'package:coffee_app/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:coffee_app/services/database.dart';
@@ -17,7 +18,7 @@ class HomePage extends StatelessWidget {
           builder: (context) {
             return Container(
               padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
-              child: Text('Bottom Sheet'),
+              child: SettingForm(),
             );
           });
     }
