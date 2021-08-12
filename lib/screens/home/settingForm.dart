@@ -41,8 +41,7 @@ class _SettingFormState extends State<SettingForm> {
                   SizedBox(height: 20.0),
                   TextFormField(
                     initialValue: userData.name,
-                    decoration:
-                        textInputDecoration.copyWith(hintText: "Enter a name"),
+                    decoration: textInputDecoration,
                     validator: (value) =>
                         value.isEmpty ? "Name is required" : null,
                     onChanged: (val) => setState(() => _currentName = val),

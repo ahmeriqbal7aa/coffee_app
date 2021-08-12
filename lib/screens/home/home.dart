@@ -50,7 +50,13 @@ class HomePage extends StatelessWidget {
             )
           ],
         ),
-        body: BrewList(),
+        body: Container(
+          child: BrewList(),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('images/coffee_bg.png'), fit: BoxFit.cover),
+          ),
+        ),
       ),
     );
   }

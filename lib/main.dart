@@ -14,7 +14,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    //Stream Provider Surround the Root Widget.
+    // Stream Provider Surround the Root Widget.
     return StreamProvider<Usser>.value(
       value: AuthService().user,
       child: MaterialApp(
