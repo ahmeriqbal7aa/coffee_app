@@ -24,8 +24,9 @@ samples, guidance on mobile development, and a full API reference.
 - cloud_firestore package
 - provider package
 - flutter_spinkit package
-- Use of Loading Widget
 - Use of Provider
+- Use of Loading Widget
+- Concept of Bottom Sheet
 - Use of Stream & Stream Builder
 - Firebase Auth: Sign in, Sign up and Sign out
 
